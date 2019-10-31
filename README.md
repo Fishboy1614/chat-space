@@ -24,35 +24,35 @@ Things you may want to cover:
 * ...
 
 # chat-space DB設計
-## accountsテーブル
+## usersテーブル
 |Column|Type|Options|
 |------|----|-------|
 |email|string|null: false|
 |password|string|null: false|
-|accountname|string|null: false|
+|username|string|null: false|
 |chat_id|integer|null: false, foreign_keys: true|
 ### Association
-- has_many :accounts_chats
-- has_many :chats, through: :accounts_chats
+- has_many :users_chats
+- has_many :chats, through: :users_chats
 - has_many :messages
 
 ## chatsテーブル
 |Column|Type|Options|
 |------|----|-------|
 |chatname|string|null: false|
-|account_id|integer|null: false, foreign_keys: true|
+|user_id|integer|null: false, foreign_keys: true|
 ### Association
-- has_many :accounts_chats
-- has_many :accounts, through: :accounts_chats
+- has_many :users_chats
+- has_many :users, through: :users_chats
 - has_many :messages
 
-## accounts_chatsテーブル
+## users_chatsテーブル
 |Column|Type|Options|
 |------|----|-------|
-|account_id|integer|null: false, foreign_key: true|
+|user_id|integer|null: false, foreign_key: true|
 |chat_id|integer|null: false, foreign_key: true|
 ### Association
-- belongs_to :account
+- belongs_to :user
 - belongs_to :chat
 
 ## messagesテーブル
@@ -60,8 +60,8 @@ Things you may want to cover:
 |------|----|-------|
 |text|text|null: false|
 |image|text||
-|account_id|integer|null: false, foreign_key: true|
+|user_id|integer|null: false, foreign_key: true|
 |chat_id|integer|null: false, foreign_key: true|
 ### Association
-- belongs_to :account
+- belongs_to :user
 - belongs_to :chat
